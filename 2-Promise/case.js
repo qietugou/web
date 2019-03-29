@@ -17,14 +17,12 @@ let p = new Promise(function (resolve, reject) {
 // }, function (err) {
 //     console.log('err2' + err)
 // });
-let pro = p.then(function (value) {
-    return new Promise(function (resolve, reject) {
-        resolve('成功')
-    });
-}, function (err) {
-    console.log('err' + err)
-}).then(function (val) {
-    console.log('val111' + val)
-}, function (err) {
-    console.log('err2' + err)
+p.then(function(val){
+    console.log(val)
+}, function(err){
+    console.log('err-' + err);
+}).then(function(val){
+    console.log('s' + val)
+}, function(err){
+    console.log('e' + err)
 });

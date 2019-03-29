@@ -55,7 +55,7 @@ function resolvePromise(x, promise, resolve, reject) {
             reject('当前调用失败' + e);
         }
     } else { //普通值得情况直接返回
-        resolve(x);
+        reject(x);
     }
 }
 
