@@ -1,0 +1,1 @@
+let EventEmitter = require('events')

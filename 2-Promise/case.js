@@ -17,12 +17,23 @@ let p = new Promise(function (resolve, reject) {
 // }, function (err) {
 //     console.log('err2' + err)
 // });
-p.then(function(val){
-    console.log(val)
-}, function(err){
-    console.log('err-' + err);
-}).then(function(val){
-    console.log('s' + val)
-}, function(err){
-    console.log('e' + err)
-});
+// p.then(function(val){
+//     console.log(val)
+// }, function(err){
+//     console.log('err-' + err);
+// }).then(function(val){
+//     console.log('s' + val)
+// }, function(err){
+//     console.log('e' + err)
+// });
+
+function a(){
+
+}
+a.prototype.ab = function(){
+    console.log(11111111)
+};
+a.test = function() {
+    console.log(222222)
+}
+console.log(a)

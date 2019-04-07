@@ -84,7 +84,6 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
         return data
     }
     onRejected = typeof onRejected === 'function' ? onRejected:function (err) {
-       console.log(err);
        throw err;
     }
     let self = this;
@@ -131,5 +130,73 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
 
     return promise2;
 }
+Promise.reject = function(val){
+    return new Promise(function(resolve, reject){
+        reject(val);
+    })
+};
+// 静态方法
+Promise.resolve = function(val){
+    return new Promise(function(resolve, reject){
+        resolve(val);
+    })
+};
+//实现catch
+Promise.prototype.catch = function(err) {
+    return this.then(null, err);
+};
 
+Promise.prototype.finnaly = function(callback) {
+    return this.then(function(data){
+        return Promise.resolve(callback()).then(function(){
+            return data;
+        }, null)
+    }, function(err){
+       return Promise.reject(callback()).then(null, function(){
+            throw err;
+       })
+    })
+};
+Promise.all = function(promises) {
+    return new Promise(function(resolve, reject){
+        let arr = [];
+        let c = 0;
+        function processData(index, val) {
+            arr[index] = val;
+            c++;
+            if (c == promises.length) {
+                resolve(arr);
+            }
+        }
+        for (let i = 0; i < promises.length; i++) {
+
+            if (typeof promises[i] === 'function') {
+                promises[i].then(function(data){
+                    processData(i, data);
+                }, function(err){
+                    reject(err);
+                });
+            } else {
+                processData(i, promises[i]);
+            }
+        }
+    })
+};
+
+Promise.race = function(promises) {
+    return new Promise(function(resolve, reject){
+        for (let i = 0; i < promises.length; i++) {
+
+            if (typeof promises[i] === 'function') {
+                promises[i].then(function(data){
+                    resolve(data);
+                }, function(err){
+                    reject(err);
+                });
+            } else {
+                resolve(promises[i]);
+            }
+        }
+    })
+};
 module.exports = Promise;

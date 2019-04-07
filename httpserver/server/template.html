@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <title></title>
+    </head>
+<body>
+    <%data.dirs.forEach(item=> {%>
+        <li><a href="<%=item.path%>"><%=item.name%></a></li>
+    <%})%>
+</body>
+</html>
